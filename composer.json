@@ -1,0 +1,22 @@
+{
+    "name": "thiio/shipoffers",
+    "description": "This is a SDK built in PHP for consuming shipoffers api as detailed in https://api.shipoffers.com/swagger/#!/stores",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^7.0.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Thiio\\ShipOffers\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "Fernando Ordoñez",
+            "email": "fernando@thiio.com"
+        }
+    ]
+}
