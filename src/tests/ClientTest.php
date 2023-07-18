@@ -1,20 +1,19 @@
 <?php
 
-namespace Thiio\Shipoffers\Test;
+namespace thiio\shipoffers\Test;
 
 use PHPUnit\Framework\TestCase;
 
-use Thiio\Shipoffers\Client;
-use Thiio\Shipoffers\Exceptions\ShipOffersException;
+use thiio\shipoffers\Client;
+use thiio\shipoffers\exceptions\InvalidArgumentException;
 
 class ClientTest extends TestCase
 {
-
     /**
      * @test
      */
     public function buildClient(): void{
-        $client = new Client("myusername","mypassword");
+        $client = new Client("myusername","mypassword" , 'asdasdsa');
         $this->assertInstanceOf(Client::class,$client);
     }
 
@@ -22,16 +21,15 @@ class ClientTest extends TestCase
      * @test
      */
     public function itShouldThrowAnErrorDueLackOfUsernam(): void{
-        $client = new Client(null,"mypassword");
-        $this->expectException(ShipOffersException::class);
+        $client = new Client(null,"mypassword", 'asdasdsa');
+        $this->expectException(InvalidArgumentException::class);
     }
 
      /**
      * @test
      */
     public function itShouldThrowAnErrorDueLackOfPassword(): void{
-        $client = new Client("myusername",null);
-        $this->expectException(ShipOffersException::class);
+        $client = new Client("myusername",null, 'asdsdas');
+        $this->expectException(InvalidArgumentException::class);
     }
-
 }
