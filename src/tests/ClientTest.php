@@ -1,35 +1,39 @@
 <?php
 
-namespace thiio\shipoffers\Test;
+namespace Thiio\ShipOffers\Test;
 
 use PHPUnit\Framework\TestCase;
+use Thiio\ShipOffers\Client;
+use Thiio\ShipOffers\Exceptions\InvalidArgumentException;
 
-use thiio\shipoffers\Client;
-use thiio\shipoffers\exceptions\InvalidArgumentException;
-
-class ClientTest extends TestCase
+final class ClientTest extends TestCase
 {
     /**
      * @test
      */
-    public function buildClient(): void{
-        $client = new Client("myusername","mypassword" , 'asdasdsa');
-        $this->assertInstanceOf(Client::class,$client);
+    public function buildClient(): void
+    {
+        $client = new Client("myusername", "mypassword", 'asdasdsa');
+        $this->assertInstanceOf(Client::class, $client);
     }
 
     /**
      * @test
      */
-    public function itShouldThrowAnErrorDueLackOfUsernam(): void{
-        $client = new Client(null,"mypassword", 'asdasdsa');
+    public function itShouldThrowAnErrorDueLackOfUsernam(): void
+    {
         $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Username is a required parameter');
+        $client = new Client(null, "mypassword", 'asdasdsa');
     }
 
      /**
      * @test
      */
-    public function itShouldThrowAnErrorDueLackOfPassword(): void{
-        $client = new Client("myusername",null, 'asdsdas');
+    public function itShouldThrowAnErrorDueLackOfPassword(): void
+    {
         $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Password is a required parameter');
+        $client = new Client("myusername", null, 'asdasdsa');
     }
 }

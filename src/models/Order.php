@@ -1,16 +1,11 @@
 <?php
 
-namespace thiio\shipoffers\models;
+namespace Thiio\ShipOffers\Models;
 
-class Order
+use Thiio\ShipOffers\Models\Base;
+
+class Order extends Base
 {
-    /**
-     * Associative array for storing property values
-     *
-     * @var mixed[]
-     */
-    protected $data = [];
-
     public function __construct(array $data = null)
     {
         $this->data['id'] = isset($data['id']) ? $data['id'] : null;

@@ -1,9 +1,14 @@
 <?php
 
-namespace thiio\shipoffers;
+namespace Thiio\ShipOffers;
 
+use Exception;
 use GuzzleHttp\Client as GuzzleHttpClient;
-use thiio\shipoffers\exceptions\InvalidArgumentException;
+use GuzzleHttp\Exception\ClientException;
+use Thiio\ShipOffers\exceptions\ApiException;
+use Thiio\ShipOffers\Exceptions\InvalidArgumentException;
+
+use function PHPSTORM_META\type;
 
 class Client
 {
@@ -84,28 +89,33 @@ class Client
 
     public function makeRequest(string $resourcePath, string $method = 'GET', array $bodyParams = [], array $queryParams = [])
     {
-        $url = "{$this->host}/{$this->storeId}/{$resourcePath}";
-        $requestClient = new GuzzleHttpClient();
-        
-        $requestConfig = [
-            'auth' => [$this->username, $this->password],
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ];
+        try {
+            $url = "{$this->host}/{$this->storeId}/{$resourcePath}";
+            $requestClient = new GuzzleHttpClient();
+            
+            $requestConfig = [
+                'auth' => [$this->username, $this->password],
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                ]
+            ];
 
-        if ( $bodyParams ) {
-            $requestConfig['json'] = $bodyParams;
+            if ( $bodyParams ) {
+                $requestConfig['json'] = $bodyParams;
+            }
+
+            if ( $queryParams ) {
+                $requestConfig['query'] = $queryParams;
+            }
+
+            $response = $requestClient->request($method, $url, $requestConfig);
+            return json_decode($response->getBody(), true);
+        } catch (ClientException $e) {
+            throw new ApiException($this->handleErrorMessage($e));
+        } catch (Exception $e) {
+            throw new ApiException($e->getMessage());
         }
-
-        if ( $queryParams ) {
-            $requestConfig['query'] = $queryParams;
-        }
-
-        $response = $requestClient->request($method, $url, $requestConfig);
-        return $response;
     }
-
 
     private function buildQueryParams(array $queryParams)
     {
@@ -117,5 +127,39 @@ class Client
         }
 
         return $params;
+    }
+
+    private function handleErrorMessage(ClientException $error)
+    {
+        if ( !$error->hasResponse() ) return $error->getMessage();
+
+        $responseBodyErrors = $this->handleBodyResponseErrors($error);
+        $statusCode = $error->getResponse()->getStatusCode();
+        $errorMessage = "{$statusCode} Unknown error occurred{$responseBodyErrors}";
+        
+        if ( $statusCode === 404 ) {
+            $errorMessage = "{$statusCode} Resource not found{$responseBodyErrors}";
+        }
+        
+        if ( $statusCode === 400 ) {
+            $errorMessage = "{$statusCode} Bad request{$responseBodyErrors}";
+        }
+
+        return $errorMessage;
+    }
+
+    private function handleBodyResponseErrors(ClientException $error)
+    {
+        $errors = '';
+
+        if ( !$error->getResponse()->getBody() ) return '';
+        $responseBody = json_decode((string)$error->getResponse()->getBody());
+        if ( !$responseBody->errors ) return '';
+
+        foreach ( $responseBody->errors as $responseBodyError ) {
+            $errors = $errors === '' ? ": {$responseBodyError}" : "{$errors}, {$responseBodyError}";
+        }
+
+        return $errors;
     }
 }

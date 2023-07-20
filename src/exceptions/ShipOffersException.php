@@ -1,10 +1,10 @@
 <?php
 
-namespace thiio\shipoffers\exceptions;
+namespace Thiio\ShipOffers\exceptions;
 
 use Exception;
 
-class ShipOffersException extends Exception
+final class ShipOffersException extends Exception
 {
     public function __construct($message = null)
     {

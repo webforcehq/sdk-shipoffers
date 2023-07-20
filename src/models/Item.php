@@ -1,6 +1,6 @@
 <?php
 
-namespace thiio\shipoffers\models;
+namespace Thiio\ShipOffers\models;
 
 class Item
 {

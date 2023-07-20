@@ -1,10 +1,10 @@
 <?php
 
-namespace thiio\shipoffers\exceptions;
+namespace Thiio\ShipOffers\exceptions;
 
 use Exception;
 
-class ApiException extends Exception
+final class ApiException extends Exception
 {
     public function __construct($message = null)
     {
