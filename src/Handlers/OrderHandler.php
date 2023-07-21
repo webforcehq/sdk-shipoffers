@@ -5,10 +5,10 @@ namespace Thiio\ShipOffers\Handlers;
 use Exception;
 use Thiio\ShipOffers\Client;
 use Thiio\ShipOffers\Exceptions\InvalidArgumentException;
-use Thiio\ShipOffers\Models\Order as OrderModel;
+use Thiio\ShipOffers\Models\Order;
 use Thiio\ShipOffers\Traits\BaseResponseTrait;
 
-class Order extends Client
+class OrderHandler extends Client
 {
     use BaseResponseTrait;
 
@@ -25,7 +25,7 @@ class Order extends Client
         parent::__construct($username, $password, $storeId);
     }
 
-    public function createOrder(OrderModel $order) : Object
+    public function createOrder(Order $order) : Object
     {
         try {
             $defaultResponse = $this->getDefaultResponse();
@@ -42,7 +42,7 @@ class Order extends Client
             
             $defaultResponse->msg = 'Order created';  
             $defaultResponse->success = true;
-            $defaultResponse->{'order'} = new OrderModel($response['order']);
+            $defaultResponse->{'order'} = new Order($response['order']);
         } catch (Exception $e) {
             $defaultResponse->msg = 'Error trying to create Order';
             $defaultResponse->error = $e->getMessage();
@@ -65,7 +65,7 @@ class Order extends Client
 
             $defaultResponse->msg = 'Order found';  
             $defaultResponse->success = true;
-            $defaultResponse->{'order'} = new OrderModel($response['order']);
+            $defaultResponse->{'order'} = new Order($response['order']);
         } catch (Exception $e) {
             $defaultResponse->msg = 'Error trying to fetch Order';
             $defaultResponse->error = $e->getMessage();
@@ -74,7 +74,7 @@ class Order extends Client
         }
     }
 
-    public function updateOrder(OrderModel $order) : Object
+    public function updateOrder(Order $order) : Object
     {
         try {
             $defaultResponse = $this->getDefaultResponse();
@@ -92,7 +92,7 @@ class Order extends Client
             
             $defaultResponse->msg = 'Order updated';  
             $defaultResponse->success = true;
-            $defaultResponse->{'order'} = new OrderModel($response['order']);
+            $defaultResponse->{'order'} = new Order($response['order']);
         } catch (Exception $e) {
             $defaultResponse->msg = 'Error trying to update Order';
             $defaultResponse->error = $e->getMessage();
@@ -115,7 +115,7 @@ class Order extends Client
             
             $defaultResponse->msg = 'Order deleted';  
             $defaultResponse->success = true;
-            $defaultResponse->{'order'} = new OrderModel($response['order']);
+            $defaultResponse->{'order'} = new Order($response['order']);
         } catch (Exception $e) {
             $defaultResponse->msg = 'Error trying to delete Order';
             $defaultResponse->error = $e->getMessage();
@@ -139,10 +139,10 @@ class Order extends Client
 
             $orders = [];
             foreach ( $response['orders'] as $order ) {
-                $orders[] = new OrderModel($order);
+                $orders[] = new Order($order);
             }
 
-            $defaultResponse->msg = 'Order found';  
+            $defaultResponse->msg = 'Orders found';  
             $defaultResponse->success = true;
             $defaultResponse->{'orders'} = $orders;
         } catch (Exception $e) {

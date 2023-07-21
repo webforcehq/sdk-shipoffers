@@ -8,11 +8,9 @@ use GuzzleHttp\Exception\ClientException;
 use Thiio\ShipOffers\exceptions\ApiException;
 use Thiio\ShipOffers\Exceptions\InvalidArgumentException;
 
-use function PHPSTORM_META\type;
-
 class Client
 {
-    private $host = 'https://api.shipoffers.com/api/stores/';
+    private $host = 'https://api.shipoffers.com/api/stores';
     private $storeId;
     private $username;
     private $password;
@@ -111,7 +109,7 @@ class Client
             $response = $requestClient->request($method, $url, $requestConfig);
             return json_decode($response->getBody(), true);
         } catch (ClientException $e) {
-            throw new ApiException($this->handleErrorMessage($e));
+            throw new ApiException($this->handleErrorResponse($e));
         } catch (Exception $e) {
             throw new ApiException($e->getMessage());
         }
@@ -129,7 +127,7 @@ class Client
         return $params;
     }
 
-    private function handleErrorMessage(ClientException $error)
+    private function handleErrorResponse(ClientException $error)
     {
         if ( !$error->hasResponse() ) return $error->getMessage();
 

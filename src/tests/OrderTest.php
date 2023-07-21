@@ -3,8 +3,7 @@
 namespace Thiio\ShipOffers\Test;
 
 use PHPUnit\Framework\TestCase;
-use Thiio\ShipOffers\Handlers\Order as OrderHandler;
-use Thiio\ShipOffers\Exceptions\InvalidArgumentException;
+use Thiio\ShipOffers\Handlers\OrderHandler;
 use Thiio\ShipOffers\Models\Order;
 
 final class OrderTest extends TestCase
