@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# shipoffers-php-sdk
-Package for consume ShipOffers API
-=======
 # README #
 
 This README would normally document whatever steps are necessary to get your application up and running.
@@ -31,4 +27,3 @@ This README would normally document whatever steps are necessary to get your app
 
 * Repo owner or admin
 * Other community or team contact
->>>>>>> e1e368e2cc5cbdf5ff64e48fa73578e36c998f50
