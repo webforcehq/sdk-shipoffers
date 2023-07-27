@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Thiio\ShipOffers\Handlers\OrderHandler;
 use Thiio\ShipOffers\Handlers\OrderItemHandler;
 use Thiio\ShipOffers\Models\Order;
-use Thiio\ShipOffers\models\OrderItem;
+use Thiio\ShipOffers\Models\OrderItem;
 
 final class OrderItemTest extends TestCase
 {
@@ -32,7 +32,7 @@ final class OrderItemTest extends TestCase
         $payload = [
             "order_number" => $orderNumber,
             "requested_shipping_service" => "UPS First Class",
-            "ship_name" => "William Adama",
+            "ship_name" => "TEST William Adama",
             "address1" => "3534 Cole Prairie",
             "address2" => "Suite 703",
             "city" => "East Justine",

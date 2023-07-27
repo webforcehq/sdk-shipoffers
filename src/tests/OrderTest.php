@@ -50,7 +50,7 @@ final class OrderTest extends TestCase
         $payload = [
             "order_number" => $orderNumber,
             "requested_shipping_service" => "UPS First Class",
-            "ship_name" => "William Adama",
+            "ship_name" => "TEST William Adama",
             "address1" => "3534 Cole Prairie",
             "address2" => "Suite 703",
             "city" => "East Justine",
@@ -87,7 +87,7 @@ final class OrderTest extends TestCase
         $payload = [
             "order_number" => $orderNumber,
             "requested_shipping_service" => "UPS First Class",
-            "ship_name" => "William Adama",
+            "ship_name" => "TEST William Adama",
             "address1" => "3534 Cole Prairie",
             "address2" => "Suite 703",
             "city" => "East Justine",
@@ -112,7 +112,7 @@ final class OrderTest extends TestCase
         $createPayload = [
             "order_number" => $orderNumber,
             "requested_shipping_service" => "UPS First Class",
-            "ship_name" => "William Adama",
+            "ship_name" => "TEST William Adama",
             "address1" => "3534 Cole Prairie",
             "address2" => "Suite 703",
             "city" => "East Justine",
@@ -130,7 +130,7 @@ final class OrderTest extends TestCase
         
         $updatePayload = [
             "id" => $responseCreateOrder->order->getId(),
-            "ship_name" => "William Adama UPDATED"
+            "ship_name" => "TEST William Adama UPDATED"
         ];
 
         $orderUpdate = new Order($updatePayload);
@@ -147,7 +147,7 @@ final class OrderTest extends TestCase
         $createPayload = [
             "order_number" => $orderNumber,
             "requested_shipping_service" => "UPS First Class",
-            "ship_name" => "William Adama",
+            "ship_name" => "TEST William Adama",
             "address1" => "3534 Cole Prairie",
             "address2" => "Suite 703",
             "city" => "East Justine",
@@ -177,7 +177,7 @@ final class OrderTest extends TestCase
         $payload = [
             "order_number" => $orderNumber,
             "requested_shipping_service" => "UPS First Class",
-            "ship_name" => "William Adama",
+            "ship_name" => "TEST William Adama",
             "address1" => "3534 Cole Prairie",
             "address2" => "Suite 703",
             "city" => "East Justine",

@@ -1,6 +1,6 @@
 <?php
 
-namespace Thiio\ShipOffers\models;
+namespace Thiio\ShipOffers\Models;
 
 use Thiio\ShipOffers\Models\Base;
 
