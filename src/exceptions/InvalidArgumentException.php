@@ -1,6 +1,6 @@
 <?php
 
-namespace Thiio\ShipOffers\exceptions;
+namespace Thiio\ShipOffers\Exceptions;
 
 use Exception;
 

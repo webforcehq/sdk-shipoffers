@@ -6,6 +6,7 @@ use Exception;
 use Thiio\ShipOffers\Client;
 use Thiio\ShipOffers\Exceptions\InvalidArgumentException;
 use Thiio\ShipOffers\Models\Order;
+use Thiio\ShipOffers\Models\OrderItem;
 use Thiio\ShipOffers\Traits\BaseResponseTrait;
 
 class OrderHandler extends Client
@@ -39,6 +40,12 @@ class OrderHandler extends Client
                     'order' => $order->serialize()
                 ]
             );
+
+            $orderItems = [];
+            foreach ( $response['order']['items'] as $item ) {
+                $orderItems[] = new OrderItem($item);
+            }
+            $response['order']['items'] = $orderItems;
             
             $defaultResponse->msg = 'Order created';  
             $defaultResponse->success = true;

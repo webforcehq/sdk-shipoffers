@@ -2,11 +2,16 @@
 
 namespace Thiio\ShipOffers\Models;
 
+use Exception;
+use Thiio\ShipOffers\Exceptions\InvalidPropertyValueException;
 use Thiio\ShipOffers\Models\Base;
+use Thiio\ShipOffers\Models\OrderItem;
 
 class Order extends Base
 {
     public $id;
+    public $firstName;
+    public $lastName;
     public $status;
     public $orderNumber;
     public $requestedShippingService;
@@ -29,6 +34,8 @@ class Order extends Base
      */
     protected $attributeMap = [
         'id' => 'id',
+        'firstName' => 'first_name', 
+        'lastName' => 'last_name', 
         'status' => 'status',
         'orderNumber' => 'order_number',
         'requestedShippingService' => 'requested_shipping_service',
@@ -52,6 +59,8 @@ class Order extends Base
      */
     protected $setters = [
         'id' => 'setId',
+        'first_name' => 'setFirstName', 
+        'last_name' => 'setLastName', 
         'status' => 'setStatus',
         'order_number' => 'setOrderNumber',
         'requested_shipping_service' => 'setRequestedShippingService',
@@ -89,6 +98,46 @@ class Order extends Base
     public function setId(string $id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of firstName
+     */ 
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Set the value of firstName
+     *
+     * @return  self
+     */ 
+    public function setFirstName(string $firstName)
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of lastName
+     */ 
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * Set the value of lastName
+     *
+     * @return  self
+     */ 
+    public function setLastName(string $lastName)
+    {
+        $this->lastName = $lastName;
 
         return $this;
     }
@@ -366,9 +415,17 @@ class Order extends Base
      *
      * @return  self
      */ 
-    public function setItems(array $items = [])
+    public function setItems(array $items)
     {
-        $this->items = $items;
+        $filteredItems = [];
+        if ( !$items ) return $this;
+        foreach ( $items as $item ) {
+            if ( !$item ) continue;
+            if ( !$item instanceof OrderItem ) throw new InvalidPropertyValueException('One or more items of array is not instance of OrderItem');
+            $filteredItems[] = $item;
+        }
+
+        $this->items = $filteredItems;
 
         return $this;
     }
