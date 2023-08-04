@@ -52,19 +52,19 @@ class Shipment extends Base
      */
     protected $setters = [
         'id' => 'setId',
-        'orderNumber' => 'setOrderNumber',
-        'trackingNumber' => 'setTrackingNumber',
-        'shipName' => 'setShipName',
+        'order_number' => 'setOrderNumber',
+        'tracking_number' => 'setTrackingNumber',
+        'ship_name' => 'setShipName',
         'address1' => 'setAddress1',
         'address2' => 'setAddress2',
         'city' => 'setCity',
         'state' => 'setState',
-        'postalCode' => 'setPostalCode',
+        'postal_code' => 'setPostalCode',
         'country' => 'setCountry',
         'status' => 'setStatus',
-        'carrierCode' => 'setCarrierCode',
-        'serviceCode' => 'setServiceCode',
-        'shipDate' => 'setShipDate',
+        'carrier_code' => 'setCarrierCode',
+        'service_code' => 'setServiceCode',
+        'ship_date' => 'setShipDate',
         'orders' => 'setOrders'
     ];
 

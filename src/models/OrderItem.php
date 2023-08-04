@@ -31,7 +31,7 @@ class OrderItem extends Base
     protected $setters = [
         'id' => 'setId',
         'sku' => 'setSku',
-        'skuId' => 'setSkuId',
+        'sku_id' => 'setSkuId',
         'quantity' => 'setQuantity'
     ];
 
