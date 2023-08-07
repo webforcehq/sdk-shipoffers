@@ -85,9 +85,7 @@ class OrderItemHandler extends Client
             $response = $this->makeRequest(
                 $resourcePath,
                 'PUT',
-                [
-                    'order_item' => $orderItem->serialize()
-                ]
+                $orderItem->serialize()
             );
             
             $defaultResponse->msg = 'Order Item updated';  
