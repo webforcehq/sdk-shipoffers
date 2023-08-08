@@ -21,7 +21,7 @@ class Base implements JsonSerializable
     
     public function toArray()
     {
-        return array_filter(json_decode(json_encode($this), true));
+        return array_filter(json_decode(json_encode($this), true), fn($val) => !is_null($val));
     }
 
     /**
@@ -45,7 +45,8 @@ class Base implements JsonSerializable
 
     private function unsetProtectedProperties(&$array) {
         foreach ( $array as $key => &$value ) {
-            if ( !$value || in_array($key, $this->protectedProperties) ) {
+            if ( $array[$key] === 0 || $array[$key] === '' ) continue;
+            if ( is_null($value) || in_array($key, $this->protectedProperties) ) {
                 unset($array[$key]);
             }
 
@@ -58,7 +59,7 @@ class Base implements JsonSerializable
     public function setAttributes(array $data)
     {
         foreach ( $data as $key => $val ) {
-            if ( !$val ) continue;
+            if ( is_null($val) ) continue;
             if ( !array_key_exists($key, $this->setters) ) continue;
             $this->{$this->setters[$key]}($val);
         }
