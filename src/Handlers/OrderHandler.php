@@ -126,6 +126,12 @@ class OrderHandler extends Client
                 'DELETE'
             );
             
+            $orderItems = [];
+            foreach ( $response['order']['items'] as $item ) {
+                $orderItems[] = new OrderItem($item);
+            }
+            $response['order']['items'] = $orderItems;
+            
             $defaultResponse->msg = 'Order deleted';  
             $defaultResponse->success = true;
             $defaultResponse->{'order'} = new Order($response['order']);
