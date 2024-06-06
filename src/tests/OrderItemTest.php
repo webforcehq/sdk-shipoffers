@@ -11,9 +11,9 @@ use WebforceHQ\ShipOffers\Models\OrderItem;
 //vendor/bin/phpunit src/tests/OrderItemTest.php
 final class OrderItemTest extends TestCase
 {
-    private const USERNAME = 'systems+api-caf001@shipoffers.com';
-    private const PASSWORD = 'r7nvYJOK7RjRsAAm';
-    private const STORE_ID = 'e8f83515-71d5-4500-8019-9a7b894afd73';
+    private const USERNAME = '';
+    private const PASSWORD = '';
+    private const STORE_ID = '';
 
     private $order;
     private $orderHandler;

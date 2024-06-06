@@ -3,7 +3,7 @@
 namespace WebforceHQ\ShipOffers\Models;
 
 use Exception;
-use WebforceHQ\ShipOffers\exceptions\InvalidPropertyValueException;
+use WebforceHQ\ShipOffers\Exceptions\InvalidPropertyValueException;
 use WebforceHQ\ShipOffers\Models\Base;
 use WebforceHQ\ShipOffers\Models\OrderItem;
 
