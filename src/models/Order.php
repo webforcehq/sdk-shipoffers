@@ -1,11 +1,11 @@
 <?php
 
-namespace Thiio\ShipOffers\Models;
+namespace WebforceHQ\ShipOffers\Models;
 
 use Exception;
-use Thiio\ShipOffers\Exceptions\InvalidPropertyValueException;
-use Thiio\ShipOffers\Models\Base;
-use Thiio\ShipOffers\Models\OrderItem;
+use WebforceHQ\ShipOffers\exceptions\InvalidPropertyValueException;
+use WebforceHQ\ShipOffers\Models\Base;
+use WebforceHQ\ShipOffers\Models\OrderItem;
 
 class Order extends Base
 {
@@ -420,8 +420,9 @@ class Order extends Base
         $filteredItems = [];
         if ( !$items ) return $this;
         foreach ( $items as $item ) {
-            if ( !$item ) continue;
-            if ( !$item instanceof OrderItem ) throw new InvalidPropertyValueException('One or more items of array is not instance of OrderItem');
+            if ( ! $item ) continue;
+            if ( ! $item instanceof OrderItem ) $item = new OrderItem($item);
+            if ( ! $item instanceof OrderItem ) throw new InvalidPropertyValueException('One or more items of array is not instance of OrderItem');
             $filteredItems[] = $item;
         }
 

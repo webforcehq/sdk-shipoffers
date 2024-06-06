@@ -1,13 +1,13 @@
 <?php
 
-namespace Thiio\ShipOffers\Handlers;
+namespace WebforceHQ\ShipOffers\Handlers;
 
 use Exception;
-use Thiio\ShipOffers\Client;
-use Thiio\ShipOffers\Exceptions\InvalidArgumentException;
-use Thiio\ShipOffers\Models\Order;
-use Thiio\ShipOffers\Models\OrderItem;
-use Thiio\ShipOffers\Traits\BaseResponseTrait;
+use WebforceHQ\ShipOffers\Client;
+use WebforceHQ\ShipOffers\Exceptions\InvalidArgumentException;
+use WebforceHQ\ShipOffers\Models\Order;
+use WebforceHQ\ShipOffers\Models\OrderItem;
+use WebforceHQ\ShipOffers\Traits\BaseResponseTrait;
 
 class OrderHandler extends Client
 {
@@ -114,27 +114,27 @@ class OrderHandler extends Client
         }
     }
 
-    public function deleteOrder(string $orderId = null) : Object
+    public function deleteOrder(string $orderId = null, $orderNumber = null ) : Object
     {
         try {
             $defaultResponse = $this->getDefaultResponse();
-            if ( !$orderId ) throw new InvalidArgumentException('Missing required parameter Order Id');
+            if ( ! $orderId ) throw new InvalidArgumentException('Missing required parameter Order Id');
+            if ( ! $orderNumber ) throw new InvalidArgumentException('Missing required parameter Order Number');
 
-            $resourcePath = "orders/{$orderId}.json";
+            $resourcePath = "orders/{$orderId}.json?order_number={$orderNumber}";
             $response = $this->makeRequest(
                 $resourcePath,
-                'DELETE'
+                'DELETE',
+                [],
+                [],
+                parent::DELETE_ORDER_API_HOST
             );
-            
-            $orderItems = [];
-            foreach ( $response['order']['items'] as $item ) {
-                $orderItems[] = new OrderItem($item);
-            }
-            $response['order']['items'] = $orderItems;
-            
-            $defaultResponse->msg = 'Order deleted';  
+            $defaultResponse->code = $response['code'];
+            if( $defaultResponse->code != 200 ) {
+                throw new Exception("Shipoffers API did not responded 200 to the delete action");
+            } 
+            $defaultResponse->msg     = 'Order deleted';
             $defaultResponse->success = true;
-            $defaultResponse->{'order'} = new Order($response['order']);
         } catch (Exception $e) {
             $defaultResponse->msg = 'Error trying to delete Order';
             $defaultResponse->error = $e->getMessage();
@@ -155,7 +155,7 @@ class OrderHandler extends Client
                 [],
                 $this->filterQueryParams($query)
             );
-
+            
             $orders = [];
             foreach ( $response['orders'] as $order ) {
                 $orders[] = new Order($order);

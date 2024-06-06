@@ -1,18 +1,19 @@
 <?php
 
-namespace Thiio\ShipOffers\Test;
+namespace WebforceHQ\ShipOffers\Test;
 
 use PHPUnit\Framework\TestCase;
-use Thiio\ShipOffers\Handlers\OrderHandler;
-use Thiio\ShipOffers\Handlers\OrderItemHandler;
-use Thiio\ShipOffers\Models\Order;
-use Thiio\ShipOffers\Models\OrderItem;
+use WebforceHQ\ShipOffers\Handlers\OrderHandler;
+use WebforceHQ\ShipOffers\Handlers\OrderItemHandler;
+use WebforceHQ\ShipOffers\Models\Order;
+use WebforceHQ\ShipOffers\Models\OrderItem;
 
+//vendor/bin/phpunit src/tests/OrderItemTest.php
 final class OrderItemTest extends TestCase
 {
-    private const USERNAME = '';
-    private const PASSWORD = '';
-    private const STORE_ID = '';
+    private const USERNAME = 'systems+api-caf001@shipoffers.com';
+    private const PASSWORD = 'r7nvYJOK7RjRsAAm';
+    private const STORE_ID = 'e8f83515-71d5-4500-8019-9a7b894afd73';
 
     private $order;
     private $orderHandler;
@@ -25,7 +26,7 @@ final class OrderItemTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->orderHandler = new OrderHandler(self::USERNAME, self::PASSWORD, self::STORE_ID);
+        $this->orderHandler     = new OrderHandler(self::USERNAME, self::PASSWORD, self::STORE_ID);
         $this->orderItemHandler = new OrderItemHandler(self::USERNAME, self::PASSWORD, self::STORE_ID);
 
         $orderNumber = date("YmdHis") . rand(0, 100);
@@ -101,9 +102,6 @@ final class OrderItemTest extends TestCase
             "quantity" => 5
         ];
 
-        echo "\nitShouldUpdateAnOrderItem\n";
-        echo $this->order->getId() . "\n";
-
         $orderItem = new OrderItem($payload);
         $responseCreateOrderItem = $this->orderItemHandler->createOrderItem($orderItem, $this->order->getId());
         $this->assertNotNull($responseCreateOrderItem->orderItem->getId());
@@ -124,9 +122,6 @@ final class OrderItemTest extends TestCase
             "sku" => "SKU1234",
             "quantity" => 5
         ];
-
-        echo "\nitShouldDeleteAnOrderItem\n";
-        echo $this->order->getId() . "\n";
 
         $orderItem = new OrderItem($payload);
         $responseCreateOrderItem = $this->orderItemHandler->createOrderItem($orderItem, $this->order->getId());

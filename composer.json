@@ -1,5 +1,5 @@
 {
-    "name": "thiio/shipoffers",
+    "name": "webforcehq/shipoffers",
     "description": "This is a SDK built in PHP for consuming shipoffers api as detailed in https://api.shipoffers.com/swagger/#!/stores",
     "type": "library",
     "require": {
@@ -10,17 +10,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Thiio\\ShipOffers\\": "src"
+            "WebforceHQ\\ShipOffers\\": "src"
         }
     },
     "authors": [
         {
             "name": "Fernando Ordoñez",
-            "email": "fernando@thiio.com"
-        },
-        {
-            "name": "Enrique Hoy",
-            "email": "enrique@thiio.com"
+            "email": "fernando@webforcehq.com"
         }
     ]
 }

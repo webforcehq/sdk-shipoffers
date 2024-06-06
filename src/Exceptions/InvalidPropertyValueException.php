@@ -1,6 +1,6 @@
 <?php
 
-namespace Thiio\ShipOffers\Exceptions;
+namespace WebforceHQ\ShipOffers\Exceptions;
 
 use Exception;
 

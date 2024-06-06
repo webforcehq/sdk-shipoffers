@@ -1,13 +1,13 @@
 <?php
 
-namespace Thiio\ShipOffers\Handlers;
+namespace WebforceHQ\ShipOffers\Handlers;
 
 use Exception;
-use Thiio\ShipOffers\Client;
-use Thiio\ShipOffers\Exceptions\InvalidArgumentException;
-use Thiio\ShipOffers\models\OrderItem;
-use Thiio\ShipOffers\Models\Order;
-use Thiio\ShipOffers\Traits\BaseResponseTrait;
+use WebforceHQ\ShipOffers\Client;
+use WebforceHQ\ShipOffers\Exceptions\InvalidArgumentException;
+use WebforceHQ\ShipOffers\models\OrderItem;
+use WebforceHQ\ShipOffers\Models\Order;
+use WebforceHQ\ShipOffers\Traits\BaseResponseTrait;
 
 class OrderItemHandler extends Client
 {

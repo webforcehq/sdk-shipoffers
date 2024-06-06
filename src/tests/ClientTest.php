@@ -1,11 +1,12 @@
 <?php
 
-namespace Thiio\ShipOffers\Test;
+namespace WebforceHQ\ShipOffers\Test;
 
 use PHPUnit\Framework\TestCase;
-use Thiio\ShipOffers\Client;
-use Thiio\ShipOffers\Exceptions\InvalidArgumentException;
+use WebforceHQ\ShipOffers\Client;
+use WebforceHQ\ShipOffers\exceptions\InvalidArgumentException;
 
+//vendor/bin/phpunit src/tests/ClientTest.php
 final class ClientTest extends TestCase
 {
     /**

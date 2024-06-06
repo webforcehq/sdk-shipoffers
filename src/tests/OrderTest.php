@@ -1,16 +1,16 @@
 <?php
 
-namespace Thiio\ShipOffers\Test;
+namespace WebforceHQ\ShipOffers\Test;
 
 use PHPUnit\Framework\TestCase;
-use Thiio\ShipOffers\Handlers\OrderHandler;
-use Thiio\ShipOffers\Models\Order;
+use WebforceHQ\ShipOffers\Handlers\OrderHandler;
+use WebforceHQ\ShipOffers\Models\Order;
 
 final class OrderTest extends TestCase
 {
-    private const USERNAME = '';
-    private const PASSWORD = '';
-    private const STORE_ID = '';
+    private const USERNAME = 'systems+api-caf001@shipoffers.com';
+    private const PASSWORD = 'r7nvYJOK7RjRsAAm';
+    private const STORE_ID = 'e8f83515-71d5-4500-8019-9a7b894afd73';
 
     private $orderHandler;
 
@@ -19,6 +19,7 @@ final class OrderTest extends TestCase
      *
      * @return void
      */
+    //vendor/bin/phpunit src/tests/OrderTest.php
     protected function setUp(): void
     {
         $this->orderHandler = new OrderHandler(self::USERNAME, self::PASSWORD, self::STORE_ID);
@@ -159,13 +160,13 @@ final class OrderTest extends TestCase
         ];
 
         
-        $orderCreate = new Order($createPayload);
+        $orderCreate         = new Order($createPayload);
         $responseCreateOrder = $this->orderHandler->createOrder($orderCreate);
         $this->assertEquals($orderNumber, $responseCreateOrder->order->getOrderNumber());
 
-        $responseDeleteOrder = $this->orderHandler->deleteOrder($responseCreateOrder->order->getId());
-        $this->assertEquals($responseCreateOrder->order->getId(), $responseDeleteOrder->order->getId());
-        $this->assertEquals('cancelled', $responseDeleteOrder->order->getStatus());
+        $responseDeleteOrder = $this->orderHandler->deleteOrder($responseCreateOrder->order->getId(),$responseCreateOrder->order->getOrderNumber());
+        $this->assertEquals($responseDeleteOrder->code, 200);
+        $this->assertEquals($responseDeleteOrder->success, true);
     }
 
     /**

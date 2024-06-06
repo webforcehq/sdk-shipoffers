@@ -1,16 +1,18 @@
 <?php
 
-namespace Thiio\ShipOffers;
+namespace WebforceHQ\ShipOffers;
 
 use Exception;
 use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\Exception\ClientException;
-use Thiio\ShipOffers\exceptions\ApiException;
-use Thiio\ShipOffers\Exceptions\InvalidArgumentException;
+use WebforceHQ\ShipOffers\Exceptions\ApiException;
+use WebforceHQ\ShipOffers\Exceptions\InvalidArgumentException;
 
 class Client
 {
     private $host = 'https://api.shipoffers.com/api/stores';
+
+    protected const DELETE_ORDER_API_HOST = "https://soapi.shipoffers.com/stores";
     private $storeId;
     private $username;
     private $password;
@@ -85,17 +87,19 @@ class Client
         return $this;
     }
 
-    public function makeRequest(string $resourcePath, string $method = 'GET', array $bodyParams = [], array $queryParams = [])
+    public function makeRequest(string $resourcePath, string $method = 'GET', array $bodyParams = [], array $queryParams = [], string $host = null)
     {
         try {
-            $url = "{$this->host}/{$this->storeId}/{$resourcePath}";
+            $apiHost = $host ?: $this->host;
+            $url     = "{$apiHost}/{$this->storeId}/{$resourcePath}";
             $requestClient = new GuzzleHttpClient();
             
             $requestConfig = [
-                'auth' => [$this->username, $this->password],
+                'auth'    => [$this->username, $this->password],
                 'headers' => [
                     'Content-Type' => 'application/json'
-                ]
+                ],
+                //'debug' => true
             ];
 
             if ( $bodyParams ) {
@@ -106,10 +110,15 @@ class Client
                 $requestConfig['query'] = $queryParams;
             }
 
-            $response = $requestClient->request($method, $url, $requestConfig);
-            return json_decode($response->getBody(), true);
+            $response        = $requestClient->request($method, $url, $requestConfig);
+            $defaultResponse = ["code" => $response->getStatusCode()];
+            $parsedResponse  = json_decode($response->getBody(), true);
+            if( ! is_null($parsedResponse) ){
+                $defaultResponse = array_merge($defaultResponse, $parsedResponse);
+            }
+            return $defaultResponse;
         } catch (ClientException $e) {
-            throw new ApiException($this->handleErrorResponse($e));
+            throw new ApiException($e);
         } catch (Exception $e) {
             throw new ApiException($e->getMessage());
         }
