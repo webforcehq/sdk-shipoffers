@@ -1,8 +1,8 @@
 <?php
 
-namespace Thiio\ShipOffers\Models;
+namespace WebforceHQ\ShipOffers\Models;
 
-use Thiio\ShipOffers\Models\Base;
+use WebforceHQ\ShipOffers\Models\Base;
 
 class OrderItem extends Base
 {

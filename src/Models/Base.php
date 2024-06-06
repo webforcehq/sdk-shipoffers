@@ -1,8 +1,9 @@
 <?php
 
-namespace Thiio\ShipOffers\Models;
+namespace WebforceHQ\ShipOffers\Models;
 
 use JsonSerializable;
+
 
 class Base implements JsonSerializable
 {
@@ -59,7 +60,9 @@ class Base implements JsonSerializable
     public function setAttributes(array $data)
     {
         foreach ( $data as $key => $val ) {
-            if ( is_null($val) ) continue;
+            if ( is_null($val) ){
+                continue;
+            } 
             if ( !array_key_exists($key, $this->setters) ) continue;
             $this->{$this->setters[$key]}($val);
         }
