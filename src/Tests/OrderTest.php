@@ -19,7 +19,7 @@ final class OrderTest extends TestCase
      *
      * @return void
      */
-    //vendor/bin/phpunit src/tests/OrderTest.php
+    //vendor/bin/phpunit src/Tests/OrderTest.php
     protected function setUp(): void
     {
         $this->orderHandler = new OrderHandler(self::USERNAME, self::PASSWORD, self::STORE_ID);

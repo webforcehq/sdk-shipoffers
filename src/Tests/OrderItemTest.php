@@ -8,7 +8,7 @@ use WebforceHQ\ShipOffers\Handlers\OrderItemHandler;
 use WebforceHQ\ShipOffers\Models\Order;
 use WebforceHQ\ShipOffers\Models\OrderItem;
 
-//vendor/bin/phpunit src/tests/OrderItemTest.php
+//vendor/bin/phpunit src/Tests/OrderItemTest.php
 final class OrderItemTest extends TestCase
 {
     private const USERNAME = '';
