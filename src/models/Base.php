@@ -4,6 +4,7 @@ namespace WebforceHQ\ShipOffers\Models;
 
 use JsonSerializable;
 
+
 class Base implements JsonSerializable
 {
     protected $setters;
